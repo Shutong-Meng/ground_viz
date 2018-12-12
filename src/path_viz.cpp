@@ -39,22 +39,22 @@ void msgs_callback(const geometry_msgs::PointStamped::ConstPtr& msg)
 }
 
 
-void slam_msgs_callback(const geometry_msgs::PointStamped::ConstPtr& msg)
+void slam_msgs_callback(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
     //ROS_INFO("odom callback!");
    
 
-    geometry_msgs::PoseStamped point_stamped;
-    point_stamped.header.stamp = msg->header.stamp;
-    point_stamped.pose.position.x= msg->point.x;
-    point_stamped.pose.position.y= msg->point.y;
-    point_stamped.pose.position.z= msg->point.z;
-    point_stamped.pose.orientation.x= 0;
-    point_stamped.pose.orientation.y= 0;
-    point_stamped.pose.orientation.z= 0;
-    point_stamped.pose.orientation.w= 1;
+    geometry_msgs::PoseStamped pose_stamped;
+    pose_stamped.header.stamp = msg->header.stamp;
+    pose_stamped.pose.position.x= msg->pose.position.x;
+    pose_stamped.pose.position.y= msg->pose.position.y;
+    pose_stamped.pose.position.z= msg->pose.position.z;
+    pose_stamped.pose.orientation.x= msg->pose.orientation.x;
+    pose_stamped.pose.orientation.y= msg->pose.orientation.y;
+    pose_stamped.pose.orientation.z= msg->pose.orientation.z;
+    pose_stamped.pose.orientation.w= msg->pose.orientation.w;
     spath.header.frame_id ="map";
-    spath.poses.push_back(point_stamped);
+    spath.poses.push_back(pose_stamped);
     spub_path.publish(spath);
 }
 
